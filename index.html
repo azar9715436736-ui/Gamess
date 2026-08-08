@@ -1,1 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Mini Game Hub — Arcade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<div class="grid-bg" aria-hidden="true"></div>
+<div class="scanline" aria-hidden="true"></div>
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+  <button class="brand" id="homeBtn" aria-label="Go to home">
+    <span class="brand-icon">🕹️</span>
+    <span class="brand-text">MINI<span>GAME</span>HUB</span>
+  </button>
+  <button class="mute-btn" id="muteBtn" aria-label="Toggle sound" title="Toggle sound">
+    <span id="muteIcon">🔊</span>
+  </button>
+</header>
+
+<main id="app">
+
+  <!-- ============ HOME VIEW ============ -->
+  <section class="view active" id="view-home">
+    <div class="hero">
+      <h1 class="hero-title">MINI GAME <span class="glitch" data-text="HUB">HUB</span></h1>
+      <p class="hero-sub">Five arcade classics. Zero installs. Pure neon nostalgia — pick a cabinet and press play.</p>
+    </div>
+
+    <div class="card-grid">
+
+      <article class="game-card" data-game="ttt" tabindex="0">
+        <div class="card-glow"></div>
+        <div class="card-icon">🎮</div>
+        <h2 class="card-title">Tic-Tac-Toe</h2>
+        <p class="card-desc">Outsmart the computer in the classic 3×3 grid duel.</p>
+        <div class="card-best" id="best-ttt">Best streak: 0</div>
+        <button class="play-btn" data-game="ttt">Play <span>→</span></button>
+      </article>
+
+      <article class="game-card" data-game="rps" tabindex="0">
+        <div class="card-glow"></div>
+        <div class="card-icon">✊</div>
+        <h2 class="card-title">Rock Paper Scissors</h2>
+        <p class="card-desc">Best reflexes and nerve win this timeless standoff.</p>
+        <div class="card-best" id="best-rps">Best streak: 0</div>
+        <button class="play-btn" data-game="rps">Play <span>→</span></button>
+      </article>
+
+      <article class="game-card" data-game="guess" tabindex="0">
+        <div class="card-glow"></div>
+        <div class="card-icon">🔢</div>
+        <h2 class="card-title">Guess the Number</h2>
+        <p class="card-desc">Crack the 1–100 code in as few attempts as possible.</p>
+        <div class="card-best" id="best-guess">Best: —</div>
+        <button class="play-btn" data-game="guess">Play <span>→</span></button>
+      </article>
+
+      <article class="game-card" data-game="memory" tabindex="0">
+        <div class="card-glow"></div>
+        <div class="card-icon">🧠</div>
+        <h2 class="card-title">Memory Match</h2>
+        <p class="card-desc">Flip, remember, match all 8 pairs in the fewest moves.</p>
+        <div class="card-best" id="best-memory">Best: —</div>
+        <button class="play-btn" data-game="memory">Play <span>→</span></button>
+      </article>
+
+      <article class="game-card" data-game="quiz" tabindex="0">
+        <div class="card-glow"></div>
+        <div class="card-icon">📝</div>
+        <h2 class="card-title">Quiz Arena</h2>
+        <p class="card-desc">10 questions. One shot each. How high can you score?</p>
+        <div class="card-best" id="best-quiz">Best: —</div>
+        <button class="play-btn" data-game="quiz">Play <span>→</span></button>
+      </article>
+
+    </div>
+
+    <footer class="home-footer">Built with HTML · CSS · JavaScript — scores saved locally on this device</footer>
+  </section>
+
+  <!-- ============ TIC TAC TOE ============ -->
+  <section class="view" id="view-ttt">
+    <div class="game-panel">
+      <div class="game-head">
+        <h2>🎮 Tic-Tac-Toe</h2>
+        <p class="game-sub">You are <b class="x-color">X</b> · Computer is <b class="o-color">O</b></p>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-chip win"><span>You</span><strong id="ttt-win">0</strong></div>
+        <div class="score-chip draw"><span>Draws</span><strong id="ttt-draw">0</strong></div>
+        <div class="score-chip lose"><span>CPU</span><strong id="ttt-lose">0</strong></div>
+      </div>
+
+      <div class="ttt-board" id="tttBoard"></div>
+
+      <div class="status-line" id="tttStatus">Your move — choose a square.</div>
+
+      <div class="btn-row">
+        <button class="action-btn primary" id="tttRestart">Restart Round</button>
+        <button class="action-btn ghost" id="tttReset">Reset Scores</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ROCK PAPER SCISSORS ============ -->
+  <section class="view" id="view-rps">
+    <div class="game-panel">
+      <div class="game-head">
+        <h2>✊📄✂️ Rock Paper Scissors</h2>
+        <p class="game-sub">Pick your weapon. Best streak is tracked.</p>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-chip win"><span>You</span><strong id="rps-win">0</strong></div>
+        <div class="score-chip draw"><span>Draws</span><strong id="rps-draw">0</strong></div>
+        <div class="score-chip lose"><span>CPU</span><strong id="rps-lose">0</strong></div>
+      </div>
+
+      <div class="rps-arena">
+        <div class="rps-side">
+          <div class="rps-avatar" id="rpsPlayerAvatar">❔</div>
+          <span>YOU</span>
+        </div>
+        <div class="rps-vs">VS</div>
+        <div class="rps-side">
+          <div class="rps-avatar" id="rpsCpuAvatar">❔</div>
+          <span>CPU</span>
+        </div>
+      </div>
+
+      <div class="status-line" id="rpsStatus">Make your choice!</div>
+
+      <div class="rps-choices">
+        <button class="rps-btn" data-choice="rock">✊<span>Rock</span></button>
+        <button class="rps-btn" data-choice="paper">📄<span>Paper</span></button>
+        <button class="rps-btn" data-choice="scissors">✂️<span>Scissors</span></button>
+      </div>
+
+      <div class="btn-row">
+        <button class="action-btn ghost" id="rpsReset">Reset Scores</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GUESS THE NUMBER ============ -->
+  <section class="view" id="view-guess">
+    <div class="game-panel">
+      <div class="game-head">
+        <h2>🔢 Guess the Number</h2>
+        <p class="game-sub">I'm thinking of a number between <b>1</b> and <b>100</b>.</p>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-chip"><span>Attempts</span><strong id="guessAttempts">0</strong></div>
+        <div class="score-chip"><span>Best</span><strong id="guessBestDisplay">—</strong></div>
+      </div>
+
+      <div class="status-line" id="guessStatus">Enter a guess to begin.</div>
+
+      <div class="guess-input-row">
+        <input type="number" id="guessInput" min="1" max="100" placeholder="1 – 100" inputmode="numeric">
+        <button class="action-btn primary" id="guessSubmit">Guess</button>
+      </div>
+
+      <div class="guess-range-bar">
+        <div class="guess-range-fill" id="guessRangeFill"></div>
+      </div>
+      <div class="guess-range-labels"><span>1</span><span>100</span></div>
+
+      <div class="btn-row">
+        <button class="action-btn ghost" id="guessNew">New Game</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MEMORY GAME ============ -->
+  <section class="view" id="view-memory">
+    <div class="game-panel wide">
+      <div class="game-head">
+        <h2>🧠 Memory Match</h2>
+        <p class="game-sub">Find all 8 matching pairs.</p>
+      </div>
+
+      <div class="scoreboard">
+        <div class="score-chip"><span>Moves</span><strong id="memMoves">0</strong></div>
+        <div class="score-chip"><span>Pairs</span><strong id="memPairs">0/8</strong></div>
+        <div class="score-chip"><span>Best</span><strong id="memBest">—</strong></div>
+      </div>
+
+      <div class="memory-board" id="memoryBoard"></div>
+
+      <div class="status-line" id="memStatus">Tap two cards to find a match.</div>
+
+      <div class="btn-row">
+        <button class="action-btn primary" id="memRestart">Restart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="view" id="view-quiz">
+    <div class="game-panel">
+      <div class="game-head">
+        <h2>📝 Quiz Arena</h2>
+        <p class="game-sub" id="quizProgressText">Question 1 of 10</p>
+      </div>
+
+      <div class="quiz-progress"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
+
+      <div id="quizQuestionWrap">
+        <div class="quiz-question" id="quizQuestion">Loading question…</div>
+        <div class="quiz-options" id="quizOptions"></div>
+      </div>
+
+      <div id="quizResultWrap" class="hidden">
+        <div class="quiz-result-icon" id="quizResultIcon">🏆</div>
+        <div class="quiz-result-score" id="quizResultScore">0 / 10</div>
+        <div class="quiz-result-msg" id="quizResultMsg"></div>
+        <div class="quiz-best-line" id="quizBestLine"></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="action-btn primary hidden" id="quizNext">Next Question</button>
+        <button class="action-btn primary hidden" id="quizRestart">Play Again</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+                                                                        </html>
+  
